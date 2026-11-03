@@ -47,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(903, 450);
             this.Controls.Add(this.reportViewer1);
             this.Name = "StudentReportForm";
-            this.Text = "StudentReportForm";
+            this.Text = "Student Report";
             this.Load += new System.EventHandler(this.StudentReportForm_Load);
             this.ResumeLayout(false);
 
