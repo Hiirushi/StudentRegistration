@@ -1,8 +1,9 @@
-﻿using System;
+﻿using StudentRegistration.Models;
 using StudentRegistration.Repositories;
-using System.Windows.Forms;
-using StudentRegistration.Models;
 using StudentRegistration.Services;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace StudentRegistration
 {
@@ -24,8 +25,7 @@ namespace StudentRegistration
         {
             LoadCourses();
             LoadStudents();
-            ButtonUpdate.Enabled = false;
-            buttonDelete.Enabled = false;
+            buttonSave.Text = "Save Student";
         }
 
         private void LoadCourses()
@@ -38,6 +38,19 @@ namespace StudentRegistration
 
         private void LoadStudents()
         {
+            dataGridViewStudentDetails.RowTemplate.Height = 30;
+            dataGridViewStudentDetails.ColumnHeadersHeightSizeMode =
+    DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewStudentDetails.ColumnHeadersHeight = 30;
+
+            dataGridViewStudentDetails.EnableHeadersVisualStyles = false;
+
+            dataGridViewStudentDetails.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.AliceBlue;
+
+            dataGridViewStudentDetails.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.AliceBlue;
+            dataGridViewStudentDetails.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Black;
+
             dataGridViewStudentDetails.DataSource = studentService.GetAllStudents();
 
             dataGridViewStudentDetails.Columns["StudentID"].Visible = false;
@@ -46,6 +59,57 @@ namespace StudentRegistration
             dataGridViewStudentDetails.ReadOnly = true;
             dataGridViewStudentDetails.AllowUserToAddRows = false;
             dataGridViewStudentDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            if (!dataGridViewStudentDetails.Columns.Contains("Delete"))
+            {
+                DataGridViewImageColumn deleteColumn =
+                    new DataGridViewImageColumn();
+
+                deleteColumn.Name = "Delete";
+                deleteColumn.HeaderText = "Action";
+                deleteColumn.Image = Properties.Resources.deleteIcon;
+                deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                deleteColumn.Width = 50;
+                deleteColumn.ReadOnly = true;
+                deleteColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                dataGridViewStudentDetails.Columns.Add(deleteColumn);
+            }
+        }
+
+        private void dataGridViewStudentDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            if (dataGridViewStudentDetails.Columns[e.ColumnIndex].Name != "Delete")
+                return;
+
+            int studentID = Convert.ToInt32(
+                dataGridViewStudentDetails.Rows[e.RowIndex]
+                .Cells["StudentID"].Value
+            );
+
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to delete this student?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                studentService.DeleteStudent(studentID);
+
+                MessageBox.Show(
+                    "Student deleted successfully!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                LoadStudents();
+                ClearFields();
+            }
         }
 
         private void ClearFields()
@@ -53,13 +117,15 @@ namespace StudentRegistration
             textBoxFirstName.Clear();
             textBoxLastName.Clear();
             textBoxAddress.Clear();
-            dateTimePickerDateOfBirth.Checked = false;
+
+            dateTimePickerDateOfBirth.Value = DateTime.Today;
             comboBoxCourse.SelectedIndex = -1;
+
             textBoxFirstName.Focus();
             selectedStudentID = 0;
+
             dataGridViewStudentDetails.ClearSelection();
-            ButtonUpdate.Enabled = false;
-            buttonDelete.Enabled = false;
+            buttonSave.Text = "Save Student";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -79,21 +145,39 @@ namespace StudentRegistration
             try
             {
                 Student student = new Student();
-                student.FirstName = textBoxFirstName.Text.Trim();
-                student.LastName = textBoxLastName.Text.Trim();
-                student.Address = textBoxAddress.Text.Trim();
-                student.DateOfBirth = dateTimePickerDateOfBirth.Checked
-                        ? dateTimePickerDateOfBirth.Value.Date : (DateTime?)null;
-                student.CourseId = comboBoxCourse.SelectedValue == null ? 0 : Convert.ToInt32(comboBoxCourse.SelectedValue);
+                {
+                    student.FirstName = textBoxFirstName.Text.Trim();
+                    student.LastName = textBoxLastName.Text.Trim();
+                    student.Address = textBoxAddress.Text.Trim();
+                    student.DateOfBirth = dateTimePickerDateOfBirth.Checked
+                            ? dateTimePickerDateOfBirth.Value.Date : (DateTime?)null;
+                    student.CourseId = comboBoxCourse.SelectedValue == null ? 0 : Convert.ToInt32(comboBoxCourse.SelectedValue);
+                };
 
-                studentService.RegisterStudent(student);
+                if (selectedStudentID == 0)
+                {
+                    studentService.RegisterStudent(student);
 
-                MessageBox.Show(
+                    MessageBox.Show(
                     "Student registered successfully!",
                     "Sucess",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
-                );
+                    );
+                }
+
+                else
+                {
+                    student.StudentId = selectedStudentID;
+                    studentService.UpdateStudent(student);
+
+                    MessageBox.Show(
+                    "Student updated successfully!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                    );
+                }
 
                 LoadStudents();
                 ClearFields();
@@ -111,19 +195,33 @@ namespace StudentRegistration
 
         private void dataGridViewStudentDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            // Ignore header clicks and invalid cells
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
 
-            int studentID = Convert.ToInt32(dataGridViewStudentDetails.Rows[e.RowIndex].Cells["StudentID"].Value);
+            // Ignore the Delete column
+            if (dataGridViewStudentDetails.Columns[e.ColumnIndex].Name == "Delete")
+                return;
 
-            Student student = studentService.GetStudentByID(studentID);
+            // Check whether the StudentID column exists
+            if (!dataGridViewStudentDetails.Columns.Contains("StudentID"))
+                return;
+
+            object studentIdValue = dataGridViewStudentDetails.Rows[e.RowIndex]
+                .Cells["StudentID"].Value;
+
+            if (studentIdValue == null || studentIdValue == DBNull.Value)
+                return;
+
+            int selectedID = Convert.ToInt32(studentIdValue);
+
+            Student student = studentService.GetStudentByID(selectedID);
 
             if (student == null)
-            {
-                MessageBox.Show("Student not found");
                 return;
-            }
 
             selectedStudentID = student.StudentId;
+
             textBoxFirstName.Text = student.FirstName;
             textBoxLastName.Text = student.LastName;
             textBoxAddress.Text = student.Address;
@@ -131,85 +229,16 @@ namespace StudentRegistration
             if (student.DateOfBirth.HasValue)
             {
                 dateTimePickerDateOfBirth.Value = student.DateOfBirth.Value;
+                dateTimePickerDateOfBirth.Checked = true;
+            }
+            else
+            {
+                dateTimePickerDateOfBirth.Checked = false;
             }
 
             comboBoxCourse.SelectedValue = student.CourseId;
 
-            ButtonUpdate.Enabled = true;
-            buttonDelete.Enabled = true;
-
-        }
-
-        private void ButtonUpdate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (selectedStudentID == 0)
-                {
-                    MessageBox.Show("Please select a student to update");
-                    return;
-                }
-
-                Student existingStudent = studentService.GetStudentByID(selectedStudentID);
-
-                Student student = new Student
-                {
-                    StudentId = selectedStudentID,
-                    FirstName = textBoxFirstName.Text.Trim(),
-                    LastName = textBoxLastName.Text.Trim(),
-                    Address = textBoxAddress.Text.Trim(),
-                    DateOfBirth = dateTimePickerDateOfBirth.Checked
-                        ? dateTimePickerDateOfBirth.Value.Date
-                        : existingStudent.DateOfBirth,
-                    CourseId = comboBoxCourse.SelectedValue == null
-                        ? 0
-                        : Convert.ToInt32(comboBoxCourse.SelectedValue)
-                };
-
-                studentService.UpdateStudent(student);
-
-                MessageBox.Show(
-                    "Student updated successfully!",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                LoadStudents();
-                ClearFields();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Update Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-            }
-        }
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            if (selectedStudentID == 0)
-            {
-                MessageBox.Show("Please select a student to delete");
-                return;
-            }
-
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to delete this student?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                studentService.DeleteStudent(selectedStudentID);
-                MessageBox.Show("Student deleted successfully");
-
-                LoadStudents();
-                ClearFields();
-            }
+            buttonSave.Text = "Update Student";
         }
     }
 }
