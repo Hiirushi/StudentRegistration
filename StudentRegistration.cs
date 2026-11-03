@@ -9,9 +9,14 @@ namespace StudentRegistration
     public partial class StudentRegistration : Form
     {
         private int selectedStudentID = 0;
-        private readonly StudentService studentService = new StudentService();
-        public StudentRegistration()
+        private readonly StudentService studentService;
+        private readonly StudentRepository studentRepository;
+        private readonly CourseRespository courseRespository;
+        public StudentRegistration(StudentService studentService, StudentRepository studentRepository, CourseRespository courseRespository)
         {
+            this.studentService = studentService;
+            this.studentRepository = studentRepository;
+            this.courseRespository = courseRespository;
             InitializeComponent();
         }
 
@@ -25,7 +30,6 @@ namespace StudentRegistration
 
         private void LoadCourses()
         {
-            CourseRespository courseRespository = new CourseRespository();
             comboBoxCourse.DataSource = courseRespository.GetAllCourses();
             comboBoxCourse.DisplayMember = "CourseName";
             comboBoxCourse.ValueMember = "CourseID";
@@ -34,8 +38,7 @@ namespace StudentRegistration
 
         private void LoadStudents()
         {
-            StudentRepository repository = new StudentRepository();
-            dataGridViewStudentDetails.DataSource = repository.GetAllStudents();
+            dataGridViewStudentDetails.DataSource = studentService.GetAllStudents();
 
             dataGridViewStudentDetails.Columns["StudentID"].Visible = false;
 
@@ -66,7 +69,7 @@ namespace StudentRegistration
 
         private void buttonGenerateReport_Click_(object sender, EventArgs e)
         {
-            StudentReportForm reportForm = new StudentReportForm();
+            StudentReportForm reportForm = new StudentReportForm(studentRepository);
 
             reportForm.ShowDialog();
         }

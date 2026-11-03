@@ -8,9 +8,9 @@ namespace StudentRegistration.Repositories
     {
         private readonly DbConnectionFactory dbConnectionFactory;
 
-        public CourseRespository()
+        public CourseRespository(DbConnectionFactory dbConnectionFactory)
         {
-            dbConnectionFactory = new DbConnectionFactory();
+            this.dbConnectionFactory = dbConnectionFactory;   
         }
 
         public DataTable GetAllCourses()

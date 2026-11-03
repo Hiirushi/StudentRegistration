@@ -10,9 +10,9 @@ namespace StudentRegistration.Repositories
     {
         private readonly DbConnectionFactory dbConnectionFactory;
 
-        public StudentRepository()
+        public StudentRepository(DbConnectionFactory dbConnectionFactory)
         {
-            dbConnectionFactory = new DbConnectionFactory();
+           this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public void AddStudent(Student student)

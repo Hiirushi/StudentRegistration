@@ -1,4 +1,7 @@
-﻿using System;
+﻿using StudentRegistration.Data;
+using StudentRegistration.Repositories;
+using StudentRegistration.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +19,26 @@ namespace StudentRegistration
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StudentRegistration());
+
+            DbConnectionFactory dbConnectionFactory =
+                new DbConnectionFactory();
+
+            StudentRepository studentRepository =
+                new StudentRepository(dbConnectionFactory);
+
+            StudentService studentService =
+                new StudentService(studentRepository);
+
+            CourseRespository courseRespository =
+                new CourseRespository(dbConnectionFactory);
+
+            Application.Run(
+                 new StudentRegistration(
+                    studentService,
+                    studentRepository,
+                    courseRespository
+                )
+            );
         }
     }
 }

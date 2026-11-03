@@ -10,9 +10,9 @@ namespace StudentRegistration.Services
     {
         private readonly StudentRepository studentRepository;
 
-        public StudentService()
+        public StudentService(StudentRepository studentRepository)
         {
-            studentRepository = new StudentRepository();
+            this.studentRepository = studentRepository;
         }
 
         public void RegisterStudent(Student student)

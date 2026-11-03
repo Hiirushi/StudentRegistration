@@ -9,9 +9,11 @@ namespace StudentRegistration
 {
     public partial class StudentReportForm : Form
     {
-        public StudentReportForm()
+        private readonly StudentRepository studentRepository;
+        public StudentReportForm(StudentRepository studentRepository)
         {
             InitializeComponent();
+            this.studentRepository = studentRepository;
         }
 
         private void StudentReportForm_Load(object sender, EventArgs e)
@@ -23,9 +25,7 @@ namespace StudentRegistration
         {
             try
             {
-                StudentRepository repository = new StudentRepository();
-
-                DataTable students = repository.GetStudentsForReport();
+                DataTable students = studentRepository.GetStudentsForReport();
 
                 // Set the report file path
                 string reportPath = Path.Combine(
