@@ -142,34 +142,49 @@ namespace StudentRegistration
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
-            if (selectedStudentID == 0)
+            try
             {
-                MessageBox.Show("Please select a student to update");
-                return;
+                if (selectedStudentID == 0)
+                {
+                    MessageBox.Show("Please select a student to update");
+                    return;
+                }
+
+                Student student = new Student
+                {
+                    StudentId = selectedStudentID,
+                    FirstName = textBoxFirstName.Text.Trim(),
+                    LastName = textBoxLastName.Text.Trim(),
+                    Address = textBoxAddress.Text.Trim(),
+                    DateOfBirth = dateTimePickerDateOfBirth.Checked
+                        ? dateTimePickerDateOfBirth.Value.Date
+                        : (DateTime?)null,
+                    CourseId = comboBoxCourse.SelectedValue == null
+                        ? 0
+                        : Convert.ToInt32(comboBoxCourse.SelectedValue)
+                };
+
+                studentService.UpdateStudent(student);
+
+                MessageBox.Show(
+                    "Student updated successfully!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                LoadStudents();
+                ClearFields();
             }
-
-            if (string.IsNullOrWhiteSpace(textBoxFirstName.Text) || 
-                string.IsNullOrWhiteSpace(textBoxLastName.Text) ||
-                comboBoxCourse.SelectedIndex == -1)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please fill in all required fields");
-                return;
+                MessageBox.Show(
+                    ex.Message,
+                    "Update Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
             }
-
-            Student student = new Student
-            {
-                StudentId = selectedStudentID,
-                FirstName = textBoxFirstName.Text.Trim(),
-                LastName = textBoxLastName.Text.Trim(),
-                Address = textBoxAddress.Text.Trim(),
-                DateOfBirth = dateTimePickerDateOfBirth.Value,
-                CourseId = Convert.ToInt32(comboBoxCourse.SelectedValue)
-            };
-
-            studentService.UpdateStudent(student);
-
-            LoadStudents();
-            ClearFields();
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
