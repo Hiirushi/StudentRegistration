@@ -150,6 +150,8 @@ namespace StudentRegistration
                     return;
                 }
 
+                Student existingStudent = studentService.GetStudentByID(selectedStudentID);
+
                 Student student = new Student
                 {
                     StudentId = selectedStudentID,
@@ -158,7 +160,7 @@ namespace StudentRegistration
                     Address = textBoxAddress.Text.Trim(),
                     DateOfBirth = dateTimePickerDateOfBirth.Checked
                         ? dateTimePickerDateOfBirth.Value.Date
-                        : (DateTime?)null,
+                        : existingStudent.DateOfBirth,
                     CourseId = comboBoxCourse.SelectedValue == null
                         ? 0
                         : Convert.ToInt32(comboBoxCourse.SelectedValue)

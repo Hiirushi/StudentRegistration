@@ -234,18 +234,18 @@
     <Compile Include="Repositories\StudentRepository.cs" />
     <Compile Include="Services\StudentService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
-    <Compile Include="StudentRegistration.cs">
+    <Compile Include="Forms\StudentRegistration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentRegistration.Designer.cs">
+    <Compile Include="Forms\StudentRegistration.Designer.cs">
       <DependentUpon>StudentRegistration.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentReportForm.cs">
+    <Compile Include="Forms\StudentReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentReportForm.Designer.cs">
+    <Compile Include="Forms\StudentReportForm.Designer.cs">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
     </Compile>
     <Content Include=".gitignore" />
@@ -261,10 +261,10 @@
     <Content Include="Reports\StudentReport.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="StudentRegistration.resx">
+    <EmbeddedResource Include="Forms\StudentRegistration.resx">
       <DependentUpon>StudentRegistration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentReportForm.resx">
+    <EmbeddedResource Include="Forms\StudentReportForm.resx">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
