@@ -14,9 +14,13 @@ namespace StudentRegistration.Services
         {
             this.studentRepository = studentRepository;
         }
-
-        public void RegisterStudent(Student student)
+        private void ValidateStudent(Student student)
         {
+            if (student == null)
+            {
+                throw new Exception("Student details cannot be empty.");
+            }
+
             if (string.IsNullOrWhiteSpace(student.FirstName))
             {
                 throw new Exception("First Name is Required");
@@ -47,11 +51,16 @@ namespace StudentRegistration.Services
                 throw new Exception("Address cannot exceed 255 characters");
             }
 
-            if (student.DateOfBirth.HasValue && student.DateOfBirth.Value.Date > DateTime.Today)
+            if (student.DateOfBirth.HasValue &&
+                student.DateOfBirth.Value.Date > DateTime.Today)
             {
                 throw new Exception("Date of Birth cannot be in the future");
             }
+        }
 
+        public void RegisterStudent(Student student)
+        {
+            ValidateStudent(student);
             studentRepository.AddStudent(student);
         }
 
@@ -67,6 +76,7 @@ namespace StudentRegistration.Services
 
         public void UpdateStudent(Student student)
         {
+            ValidateStudent(student);
             studentRepository.UpdateStudent(student);
         }
 
