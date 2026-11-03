@@ -38,6 +38,10 @@ namespace StudentRegistration
                 reportViewer1.ProcessingMode = ProcessingMode.Local;
                 reportViewer1.LocalReport.ReportPath = reportPath;
 
+                reportViewer1.ShowToolBar = true;
+                reportViewer1.ShowPrintButton = true;
+                reportViewer1.ShowPrintButton = true;
+
                 // Clear existing data sources
                 reportViewer1.LocalReport.DataSources.Clear();
 

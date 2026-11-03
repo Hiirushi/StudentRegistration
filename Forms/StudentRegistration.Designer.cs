@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBoxStudentDetails = new System.Windows.Forms.GroupBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -234,12 +234,11 @@
             // groupBoxStudentList
             // 
             this.groupBoxStudentList.BackColor = System.Drawing.Color.Transparent;
-            this.groupBoxStudentList.Controls.Add(this.label2);
-            this.groupBoxStudentList.Controls.Add(this.buttonGenerateReport);
             this.groupBoxStudentList.Controls.Add(this.dataGridViewStudentDetails);
-            this.groupBoxStudentList.Location = new System.Drawing.Point(23, 466);
+            this.groupBoxStudentList.Controls.Add(this.buttonGenerateReport);
+            this.groupBoxStudentList.Location = new System.Drawing.Point(23, 526);
             this.groupBoxStudentList.Name = "groupBoxStudentList";
-            this.groupBoxStudentList.Size = new System.Drawing.Size(973, 335);
+            this.groupBoxStudentList.Size = new System.Drawing.Size(973, 312);
             this.groupBoxStudentList.TabIndex = 1;
             this.groupBoxStudentList.TabStop = false;
             // 
@@ -247,7 +246,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bahnschrift SemiBold", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 30);
+            this.label2.Location = new System.Drawing.Point(17, 476);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(200, 33);
             this.label2.TabIndex = 1;
@@ -262,7 +261,7 @@
             this.buttonGenerateReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGenerateReport.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonGenerateReport.ForeColor = System.Drawing.Color.White;
-            this.buttonGenerateReport.Location = new System.Drawing.Point(803, 33);
+            this.buttonGenerateReport.Location = new System.Drawing.Point(803, 27);
             this.buttonGenerateReport.Name = "buttonGenerateReport";
             this.buttonGenerateReport.Size = new System.Drawing.Size(147, 36);
             this.buttonGenerateReport.TabIndex = 12;
@@ -276,27 +275,27 @@
             this.dataGridViewStudentDetails.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewStudentDetails.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
             this.dataGridViewStudentDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewStudentDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStudentDetails.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.dataGridViewStudentDetails.Location = new System.Drawing.Point(16, 75);
+            this.dataGridViewStudentDetails.Location = new System.Drawing.Point(16, 69);
             this.dataGridViewStudentDetails.MultiSelect = false;
             this.dataGridViewStudentDetails.Name = "dataGridViewStudentDetails";
             this.dataGridViewStudentDetails.ReadOnly = true;
             this.dataGridViewStudentDetails.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            this.dataGridViewStudentDetails.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.dataGridViewStudentDetails.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewStudentDetails.RowTemplate.Height = 24;
             this.dataGridViewStudentDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewStudentDetails.Size = new System.Drawing.Size(934, 233);
+            this.dataGridViewStudentDetails.Size = new System.Drawing.Size(934, 226);
             this.dataGridViewStudentDetails.TabIndex = 0;
             this.dataGridViewStudentDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentDetails_CellClick);
             this.dataGridViewStudentDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentDetails_CellContentClick);
@@ -324,7 +323,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1021, 796);
+            this.ClientSize = new System.Drawing.Size(1021, 850);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.groupBoxStudentList);
             this.Controls.Add(this.groupBoxStudentDetails);
@@ -334,11 +334,11 @@
             this.groupBoxStudentDetails.ResumeLayout(false);
             this.groupBoxStudentDetails.PerformLayout();
             this.groupBoxStudentList.ResumeLayout(false);
-            this.groupBoxStudentList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentDetails)).EndInit();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
