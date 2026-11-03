@@ -1,4 +1,4 @@
-﻿Student Registration System
+﻿*Student Registration System*
 
 Features 
 - Student registration
