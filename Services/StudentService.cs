@@ -2,6 +2,7 @@
 using StudentRegistration.Repositories;
 using StudentRegistration.Models;
 using System;
+using System.Data;
 
 namespace StudentRegistration.Services
 {
@@ -52,6 +53,11 @@ namespace StudentRegistration.Services
             }
 
             studentRepository.AddStudent(student);
+        }
+
+        public DataTable GetAllStudents()
+        {
+            return studentRepository.GetAllStudents();
         }
 
         public Student GetStudentByID(int studentID)
