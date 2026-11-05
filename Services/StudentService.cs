@@ -1,5 +1,4 @@
-﻿
-using StudentRegistration.Repositories;
+﻿using StudentRegistration.Repositories;
 using StudentRegistration.Models;
 using System;
 using System.Data;
@@ -83,6 +82,14 @@ namespace StudentRegistration.Services
         public void DeleteStudent(int studentID)
         {
             studentRepository.DeleteStudent(studentID);
+        }
+
+        public DataTable GetStudentsForReport()
+        {
+            DataTable students = new DataTable();
+            students = studentRepository.GetStudentsForReport();
+
+            return students;
         }
     }
 }

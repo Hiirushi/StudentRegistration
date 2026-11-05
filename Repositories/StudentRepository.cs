@@ -53,7 +53,8 @@ namespace StudentRegistration.Repositories
                 string query = @"SELECT s.StudentID, CONCAT(s.FirstName,' ', s.LastName)
                 AS [Full Name],
                 s.Address, s.DateOfBirth AS [Date of Birth],
-                c.CourseName AS Course
+                c.CourseName AS Course,
+                c.CourseID
                 FROM Students s INNER JOIN Courses c ON s.CourseID = c.CourseID
                 ORDER BY s.StudentID DESC";
 

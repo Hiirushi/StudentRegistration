@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../StudentRegistration.WebForms/StudentRegistration.WebForms.csproj" Id="ea20efc2-1da7-4e21-aa16-fd9ebcb379fc" />
   <Project Path="StudentRegistration.csproj" Id="64d00d1f-f7c2-49ac-a79c-51b58113e4dc" />
 </Solution>
